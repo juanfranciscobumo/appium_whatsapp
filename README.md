@@ -1,7 +1,7 @@
 # ![Serenity BDD](docs/whatsapp.png "Logo Title Text 1")
 
 
-# Prueba automatizada para realizar la búsqueda de un video en YouTube
+# Prueba automatizada para enviar un mensaje por whatsapp
 
 # ![Serenity BDD](docs/serenity.png "Logo Title Text 1")
 
@@ -35,15 +35,20 @@
 
 * Features: Utiliza lenguaje Gherkin y contienen los escenarios de negocio del caso de prueba. 
 * Tasks: Clases que representan tareas que realiza el actor a nivel de proceso de negocio. 
+* Interactions: Clases que representan partes de una tarea, o acciones.
+* Builders: Patron que permite crear un objeto de una forma más dinámica.
+* Drivers: Clase que permite la conexión con el driver.
 * Questions: Comprueban los resultados de las operaciones realizadas. 
 * Exceptions: Son las excepciones que se visualizan cuando un test falla o tiene errores. 
 * Interfaces: Es una clase abstracta que se utiliza para agrupar métodos relacionados con cuerpos vacíos.
-
 
 # Requerimientos
 
 * Java JDK 1.8 
 * Gestor de proyectos Gradle 
+* Appium
+* Android sdk
+* Celular android
 
 # Comandos para ejecutar el proyecto.
 
