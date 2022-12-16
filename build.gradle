@@ -1,38 +1,57 @@
+defaultTasks 'clean', 'test', 'aggregate'
+
 version '1.0-SNAPSHOT'
 
 apply plugin: 'java-library'
 
 repositories {
-    mavenLocal()
-    jcenter()
+    mavenCentral()
 }
+
 buildscript {
     repositories {
         mavenCentral()
-        jcenter()
+        maven {
+            url "https://plugins.gradle.org/m2/"
+        }
     }
     dependencies {
-        classpath("net.serenity-bdd:serenity-gradle-plugin:2.1.7")
+        classpath("net.serenity-bdd:serenity-gradle-plugin:3.2.5")
+        classpath("net.serenity-bdd:serenity-single-page-report:3.3.1")
     }
 }
+
 apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'idea'
 apply plugin: 'net.serenity-bdd.aggregator'
-
+apply from: "$rootDir/gradle/libraries.gradle"
+serenity {
+    reports = ["single-page-html"]
+}
 dependencies {
-    compile group: 'net.serenity-bdd', name: 'serenity-core', version: '2.1.7'
-    compile group: 'net.serenity-bdd', name: 'serenity-junit', version: '2.1.7'
-    compile group: 'net.serenity-bdd', name: 'serenity-cucumber', version: '1.9.51'
-    compile group: 'net.serenity-bdd', name: 'serenity-screenplay', version: '2.1.7'
-    compile group: 'net.serenity-bdd', name: 'serenity-screenplay-webdriver', version: '2.1.7'
 
-    testCompile group: 'junit', name: 'junit', version: '4.13'
-    testCompile group: 'org.assertj', name: 'assertj-core', version: '3.15.0'
-    testCompile group: 'org.slf4j', name: 'slf4j-simple', version: '1.7.30'
+    implementation libs.test.serenity.cucumber,
+            libs.test.serenity.junit,
+            libs.test.cucumber.junit,
+            libs.test.cucumber.java,
+            libs.test.cucumber.core,
+            libs.test.serenity.core,
+            libs.test.serenity.screenplay,
+            libs.test.serenity.screenplayWebdriver,
+            libs.test.junitApi,
+            libs.test.junitEngine,
+            libs.test.assertj,
+            libs.slf4jApi
+
 }
-tasks.withType(Test){
-    systemProperties = System.properties
-    maxParallelForks = Runtime.runtime.availableProcessors()
+
+test {
+    testLogging.showStandardStreams = true
+    systemProperties System.getProperties()
+    // maxParallelForks = 2
 }
+
 gradle.startParameter.continueOnFailure = true
+
+test.finalizedBy(aggregate)

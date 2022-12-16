@@ -6,12 +6,12 @@ import net.serenitybdd.screenplay.questions.Text;
 
 public class TheMessageWasSend {
 
-	public static Question<String> at() {
-		return actor -> Text.of(PageWhatsapp.LBLCONTAC).viewedBy(actor).asString();
-	}
+    public static Question<String> withMessage(String message) {
+        return actor -> Text.of(PageWhatsapp.LBL_MESSAGE_SEND.of(message)).answeredBy(actor);
+    }
 
-	public static Question<String> withMessage() {
-		return actor -> Text.of(PageWhatsapp.LBLMESSAGE_SEND).viewedBy(actor).asList()
-				.get(Text.of(PageWhatsapp.LBLMESSAGE_SEND).viewedBy(actor).asList().size() - 1);
-	}
+    public static Question<String> at() {
+        return actor -> Text.of(PageWhatsapp.LBL_CONTAC).answeredBy(actor);
+    }
+
 }

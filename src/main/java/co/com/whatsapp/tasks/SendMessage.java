@@ -1,34 +1,24 @@
 package co.com.whatsapp.tasks;
 
-import static co.com.whatsapp.pages.PageWhatsapp.BTNNEWCHAT;
-import static co.com.whatsapp.pages.PageWhatsapp.BTNSEND;
-import static co.com.whatsapp.pages.PageWhatsapp.LBLMESSAGE;
 
-import co.com.whatsapp.interactions.LookContact;
+import co.com.whatsapp.interactions.ScrollTo;
 import co.com.whatsapp.model.TestData;
-import net.serenitybdd.screenplay.Actor;
+import net.serenitybdd.screenplay.Performable;
 import net.serenitybdd.screenplay.Task;
-import net.serenitybdd.screenplay.Tasks;
 import net.serenitybdd.screenplay.actions.Click;
 import net.serenitybdd.screenplay.actions.Enter;
 
-public class SendMessage implements Task {
-	private String contact;
-	private String message;
+import static co.com.whatsapp.pages.PageWhatsapp.*;
 
-	public SendMessage(TestData data) {
-		this.contact = data.getContact();
-		this.message = data.getMessage();
-	}
+public class SendMessage {
 
-	@Override
-	public <T extends Actor> void performAs(T actor) {
-
-		actor.attemptsTo(Click.on(BTNNEWCHAT), LookContact.onWhatsapp(contact),
-				Enter.theValue(message).into(LBLMESSAGE), Click.on(BTNSEND));
-	}
-
-	public static SendMessage onWhatsapp(TestData data) {
-		return Tasks.instrumented(SendMessage.class, data);
-	}
+    public static Performable onWhatsapp(TestData data) {
+        return Task.where(
+                "{0} Busca el contacto " + data.getContact(),
+                Click.on(BTN_NEW_CHAT),
+                ScrollTo.android(data.getContact()),
+                Click.on(BTN_CONTACT.of(data.getContact())),
+                Enter.theValue(data.getMessage()).into(LBL_MESSAGE),
+                Click.on(BTN_SEND));
+    }
 }

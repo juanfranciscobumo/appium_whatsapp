@@ -10,6 +10,6 @@ Feature: Send a message by whatsapp
     When look the personal contact <contact> and send the message <message>
     Then juan will check that message was send at contact <contact> with message <message>
 
-    Examples: 
-      | contact | message                                |
-      | My Nena | Disculpe, esto es un mensaje de prueba |
+    Examples:
+      | contact         | message                                |
+      | Karen Estupinan | Disculpe, esto es un mensaje de prueba |

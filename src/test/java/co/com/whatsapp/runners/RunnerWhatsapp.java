@@ -1,14 +1,13 @@
 package co.com.whatsapp.runners;
 
+import io.cucumber.junit.CucumberOptions;
 import org.junit.runner.RunWith;
 
-import cucumber.api.CucumberOptions;
-import cucumber.api.SnippetType;
 import net.serenitybdd.cucumber.CucumberWithSerenity;
 
 @RunWith(CucumberWithSerenity.class)
 @CucumberOptions(features = "src/test/resources/features/whatsapp.feature"
 , glue = "co/com/whatsapp/stepdefinitions"
-, snippets = SnippetType.CAMELCASE)
+, snippets = CucumberOptions.SnippetType.CAMELCASE)
 public class RunnerWhatsapp {
 }
