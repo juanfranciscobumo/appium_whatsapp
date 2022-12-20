@@ -4,7 +4,6 @@
 
 ### Eclipse ###
 .idea
-gradle
 settings.gradle
 target/
 .metadata
